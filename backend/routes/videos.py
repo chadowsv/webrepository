@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from sqlmodel import select
-from ..db import SessionDep
+from backend.db import SessionDep
 from backend.models.videos import Video   
 
 videos = APIRouter(prefix="/videos", tags=["videos"])
