@@ -68,7 +68,7 @@ def get_products_by_category(category_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Category no encontrada")
 
     products = session.exec(
-        select(Product).where(Product.category_id == category_id)
+        select(Product).where(Product.category == category_id)
     ).all()
 
     return products

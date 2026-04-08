@@ -8,7 +8,7 @@ class Product(SQLModel, table=True):
     price: float
     stock: int
     image_url: Optional[str] = None
-    category_id: Optional[int] = Field(default=None, foreign_key="category.id")
+    category: Optional[int] = Field(default=None, foreign_key="category.id")
 
 class ProductCreate(SQLModel):
     name: str
@@ -16,7 +16,7 @@ class ProductCreate(SQLModel):
     price: float
     stock: int
     image_url: Optional[str] = None
-    category_id: Optional[int] = None
+    category: Optional[int] = None
 
 class ProductRead(SQLModel):
     id: int
@@ -25,7 +25,7 @@ class ProductRead(SQLModel):
     price: float
     stock: int
     image_url: Optional[str] = None
-    category_id: Optional[int] = None
+    category: Optional[int] = None
 
 class ProductUpdate(SQLModel):
     name: Optional[str] = None
@@ -33,4 +33,4 @@ class ProductUpdate(SQLModel):
     price: Optional[float] = None
     stock: Optional[int] = None
     image_url: Optional[str] = None
-    category_id: Optional[int] = None
+    category: Optional[int] = None

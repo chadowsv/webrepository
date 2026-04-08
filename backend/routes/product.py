@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import select
 from backend.db import SessionDep
 from backend.models.product import Product, ProductCreate, ProductRead, ProductUpdate
-from backend.models.usuario import User
 
 products = APIRouter(prefix="/products", tags=["products"])
 
