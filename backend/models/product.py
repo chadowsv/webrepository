@@ -1,7 +1,10 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
-class Video(SQLModel, table=True):
+class Product(SQLModel, table=True):
     id:Optional[int] = Field(default=None, primary_key=True)
-    titulo:str
-    duracion:float
-    url:str
+    name:str
+    description:Optional[str]
+    price:float
+    stock:int
+    image_url:Optional[str]
+    category:Optional[int] = Field(default=None, foreign_key="category.id")

@@ -1,3 +1,8 @@
+import { useState } from "react";
+import SelectUser from "./components/SelectUser";
+import Users from "./components/Users";
+import Category from "./components/Category";
+import "./styles.css";
 function App() {
   const [user, setUser] = useState(null);
   const [view, setView] = useState("select");
@@ -24,11 +29,13 @@ function App() {
       )}
 
       {view === "videos" && (
-        <Videos
+        <Category
           user={user}
           onChangeUser={() => setView("select")}
         />
       )}
     </>
   );
-} export default App;
+}
+
+export default App;

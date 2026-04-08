@@ -19,10 +19,13 @@ export const createUser = async (user) => {
     });
     return res.json();
 }
-export const getVideos = async () => {
-    const rest = await fetEpisodioch(`${API_URL}/videos/`);
-    if (!rest.ok){
-        throw new Error("Error al obtener videos")
-    }
-    return rest.json();
+
+export const getCategories = async () => {
+  const res = await fetch(`${API_URL}/categories`);
+  return res.json();
+};
+
+export const getProductsByCategory = async (id) => {
+  const res = await fetch(`${API_URL}/categories/${id}/products`);
+  return res.json();
 };

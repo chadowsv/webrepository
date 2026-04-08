@@ -4,11 +4,13 @@ from sqlmodel import select
 from contextlib import asynccontextmanager
 from backend.db import create_all_tables, SessionDep
 from backend.routes.users import users
-from backend.routes.videos import videos
+from backend.routes.product import products
+from backend.routes.category import categories
 #Ejecucion de create_all_tables al iniciar la aplicacion
 app = FastAPI(lifespan=create_all_tables)
 app.include_router(users)
-app.include_router(videos)
+app.include_router(products)
+app.include_router(categories)
 origins = [
     "*",  # luego lo cambias por tu URL de S3
 ]
