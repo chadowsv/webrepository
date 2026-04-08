@@ -1,16 +1,18 @@
 from fastapi import APIRouter, HTTPException
 from sqlmodel import select
 from backend.db import SessionDep
-from backend.models.product import Product  
+from backend.models.product import Product, ProductCreate, ProductRead, ProductUpdate
+from backend.models.usuario import User
 
 products = APIRouter(prefix="/products", tags=["products"])
 
-@products.post("/")
-def create_product(product: Product, session: SessionDep):
-    session.add(product)
+@products.post("/", response_model=ProductRead)
+def create_product(product: ProductCreate, session: SessionDep):
+    db_product = Product.model_validate(product)
+    session.add(db_product)
     session.commit()
-    session.refresh(product)
-    return product
+    session.refresh(db_product)
+    return db_product
 
 @products.get("/")
 def list_products(session: SessionDep):
@@ -24,8 +26,8 @@ def get_product(product_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Product no encontrado")
     return product
 
-@products.put("/{product_id}")
-def update_product(product_id: int, product: Product, session: SessionDep):
+@products.put("/{product_id}", response_model=ProductRead)
+def update_product(product_id: int, product: ProductUpdate, session: SessionDep):
     db_product = session.get(Product, product_id)
 
     if not db_product:

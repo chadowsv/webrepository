@@ -1,18 +1,19 @@
 from fastapi import APIRouter, HTTPException
 from sqlmodel import select
 from backend.db import SessionDep
-from backend.models.category import Category
+from backend.models.category import Category, CategoryCreate, CategoryRead, CategoryUpdate
 from backend.models.product import Product
 
 categories = APIRouter(prefix="/categories", tags=["categories"])
 
-
-@categories.post("/")
-def create_category(category: Category, session: SessionDep):
-    session.add(category)
+@categories.post("/", response_model=CategoryRead)
+def create_category(category: CategoryCreate, session: SessionDep):
+    db_category = Category.model_validate(category)
+    session.add(db_category)
     session.commit()
-    session.refresh(category)
-    return category
+    session.refresh(db_category)
+    return db_category
+
 
 
 @categories.get("/")
@@ -30,8 +31,8 @@ def get_category(category_id: int, session: SessionDep):
     return category
 
 
-@categories.put("/{category_id}")
-def update_category(category_id: int, data: Category, session: SessionDep):
+@categories.put("/{category_id}", response_model=CategoryRead)
+def update_category(category_id: int, data: CategoryUpdate, session: SessionDep):
     category = session.get(Category, category_id)
 
     if not category:
@@ -46,7 +47,6 @@ def update_category(category_id: int, data: Category, session: SessionDep):
     session.refresh(category)
 
     return category
-
 
 @categories.delete("/{category_id}")
 def delete_category(category_id: int, session: SessionDep):
