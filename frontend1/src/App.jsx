@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectUser from "./components/SelectUser";
 import Users from "./components/Users";
-import Category from "./components/Category";
+import Category from "./components/Categories";
 import "./styles.css";
 function App() {
   const [user, setUser] = useState(null);

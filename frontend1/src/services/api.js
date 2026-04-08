@@ -1,5 +1,5 @@
 /*Definicion de la URL de la API*/
-const API_URL = "http://:8000"
+const API_URL = "http://54.193.193.147:8000"
 /*Funcion getUsers*/
 export const getUsers = async () => {
     /*Se hace una solicitud GET a la API para obtener los usuarios, await espera la respuesta y la convierte en json*/

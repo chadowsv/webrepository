@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../../../frontend/src/services/api";
+import { getUsers } from "../services/api";
 
 function SelectUser({ onSelect, onCreate }) {
   const [users, setUsers] = useState([]);

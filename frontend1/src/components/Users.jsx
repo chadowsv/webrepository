@@ -1,6 +1,6 @@
 /*useState guarda los datos en el componente y createUser es la funcion que llama a laa API*/
 import { useState } from "react";
-import { createUser } from "../../../frontend/src/services/api";
+import { createUser } from "../services/api";
 /*Pantalla de creacion de usuario*/
 function Users({ onUserCreated }) {
     /*Aqui se guardan los datos escritos del usuario*/
@@ -8,13 +8,33 @@ function Users({ onUserCreated }) {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
     /*Imagenes establecidas desde S3*/
-  const avatars = [
-    "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Bill.jpeg",
-    "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Dipper.jpeg",
-    "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Mabel.jpeg",
-    "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Sous.jpeg",
-    "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Stan.jpeg",
-  ];
+const avatars = [
+  {
+    name: "Bill Cipher",
+    img: "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Bill.jpeg",
+    desc: "Misterioso, manipulador y ama el caos"
+  },
+  {
+    name: "Dipper Pines",
+    img: "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Dipper.jpeg",
+    desc: "Curioso, inteligente y obsesionado con lo paranormal"
+  },
+  {
+    name: "Mabel Pines",
+    img: "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Mabel.jpeg",
+    desc: "Creativa, divertida y llena de energía"
+  },
+  {
+    name: "Soos",
+    img: "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Sous.jpeg",
+    desc: "Leal, relajado y siempre buena onda"
+  },
+  {
+    name: "Stan Pines",
+    img: "https://archivosgravityfalls.s3.us-west-1.amazonaws.com/avatars/Stan.jpeg",
+    desc: "Astuto, gracioso y con secretos"
+  }
+];
   /*Funcion para manejar el envío del formulario, creacion del usuario*/
   const handleSubmit = async () => {
     /*Preparacion de los datos para enviar a la API*/
@@ -35,7 +55,7 @@ function Users({ onUserCreated }) {
 
   return (
     <div>
-      <h2>Crear perfil</h2>
+      <h1 className="title">¿Quién eres en Gravity Falls?</h1>
 
       <input
         placeholder="Nombre"
@@ -51,19 +71,20 @@ function Users({ onUserCreated }) {
 
       <h3>Elige un avatar</h3>
 
-      <div style={{ display: "flex", gap: "10px" }}>
+      <div className="avatars-container">
         {avatars.map((a, index) => (
-          <img
-            key={index}
-            src={a}
-            width="80"
-            style={{
-              border: avatar === a ? "3px solid blue" : "1px solid gray",
-              cursor: "pointer"
-            }}
-            onClick={() => setAvatar(a)}
-          />
-        ))}
+  <div
+    key={index}
+    onClick={() => setAvatar(a.img)}
+    className="avatar-card"
+  >
+    <img src={a.img}/>
+
+    <h4>{a.name}</h4>
+
+    <p style={{ fontSize: "12px" }}>{a.desc}</p>
+  </div>
+))}
       </div>
 
       <button onClick={handleSubmit}>Crear</button>
